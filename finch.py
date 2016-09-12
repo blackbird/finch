@@ -7,6 +7,7 @@ BOT_NAME        = "finch"
 BOT_ID          = os.environ.get("BOT_ID")
 SLACK_BOT_TOKEN = SlackClient(os.environ.get("SLACK_BOT_TOKEN"))
 AT_BOT          = "<@" + BOT_ID + ">"
+LOG_CHANNEL_ID  = os.environ.get("LOG_CHANNEL_ID")
 ANON_COMMAND    = "-a"
 
 # instantiate Slack client
@@ -36,7 +37,8 @@ def handle_command(content, channel):
 	if content == "":
 		response = "*You didn't write anything.* :angry: Mention me `@finch [message]` along with a thought or question that you want to discuss! You can also use `@finch -a [message]` to submit an anonymous response."
 	else:
-		# TODO: send text to Google Sheets
+		# TODO: send text to Google Sheets (include username)
+		slack_client.api_call("chat.postMessage", channel=LOG_CHANNEL_ID, text="SUBMISSION: " + content, as_user=True)
 
 		if command == ANON_COMMAND:
 			response = default_response + " _Submitted anonymously_"
