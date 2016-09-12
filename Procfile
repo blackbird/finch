@@ -1,1 +1,1 @@
-worker: python finch.py
+worker: python finch.py start
