@@ -26,7 +26,7 @@ def handle_command(content, channel):
 	default_response = "Thanks! Your response has been *recorded to be discussed at our next meeting*."
 
 	# parse out command
-	if content.startswith(ANON_COMMAND + " "):
+	if content.startswith(ANON_COMMAND):
 		command = ANON_COMMAND
 		content = content.split(ANON_COMMAND)[1].strip().lower()
 	else:
@@ -34,7 +34,7 @@ def handle_command(content, channel):
 
 	# evaluate content text
 	if content == "":
-		response = "You didn't write anything :angry:. Mention me `@finch [message]` along with a thought or question that you want to discuss! You can also use `@finch -a [message]` to submit an anonymous response."
+		response = "*You didn't write anything.* :angry: Mention me `@finch [message]` along with a thought or question that you want to discuss! You can also use `@finch -a [message]` to submit an anonymous response."
 	else:
 		# TODO: send text to Google Sheets
 
@@ -52,7 +52,7 @@ if __name__ == "__main__":
 		print("Finch connected and running!")
 		while True:
 			content, channel = parse_input(slack_client.rtm_read())
-			if content and channel:
+			if channel:
 				handle_command(content, channel)
 			time.sleep(READ_WEBSOCKET_DELAY)
 	else:
