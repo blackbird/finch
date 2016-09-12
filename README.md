@@ -1,2 +1,2 @@
-# slackbot
-The Blackbird Slackbot.
+# finch
+Super simple Blackbird Slackbot.
